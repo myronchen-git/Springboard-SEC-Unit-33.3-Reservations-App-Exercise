@@ -1,0 +1,27 @@
+{
+  "name": "lunchly",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.21.0",
+    "moment": "^2.30.1",
+    "nunjucks": "^3.1.3",
+    "pg": "^8.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myronchen-git/Springboard-SEC-Unit-33.3-Reservations-App-Exercise.git"
+  },
+  "bugs": {
+    "url": "https://github.com/myronchen-git/Springboard-SEC-Unit-33.3-Reservations-App-Exercise/issues"
+  },
+  "homepage": "https://github.com/myronchen-git/Springboard-SEC-Unit-33.3-Reservations-App-Exercise#readme",
+  "description": ""
+}
