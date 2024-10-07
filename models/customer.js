@@ -103,6 +103,25 @@ class Customer {
   fullName() {
     return this.firstName + ' ' + this.lastName;
   }
+
+  /** Gets top 10 customers, ordered by most reservations. */
+  static async top10() {
+    const results = await db.query(
+      `SELECT
+        c.id,
+        first_name AS "firstName",
+        last_name AS "lastName",
+        phone,
+        c.notes,
+        COUNT(r.id) AS num_reserv
+       FROM customers AS c
+       JOIN reservations AS r ON c.id = r.customer_id
+       GROUP BY c.id
+       ORDER BY num_reserv DESC, last_name, first_name
+       LIMIT 10`
+    );
+    return results.rows.map((c) => new Customer(c));
+  }
 }
 
 module.exports = Customer;
