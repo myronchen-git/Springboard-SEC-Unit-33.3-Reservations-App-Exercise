@@ -29,6 +29,27 @@ class Customer {
     return results.rows.map((c) => new Customer(c));
   }
 
+  /** Searches for customers by name. */
+  static async search(name) {
+    let [firstName, lastName] = name.split(' ', 2);
+    firstName ||= '';
+    lastName ||= '';
+
+    const results = await db.query(
+      `SELECT id,
+         first_name AS "firstName",
+         last_name AS "lastName",
+         phone,
+         notes
+       FROM customers
+       WHERE first_name ILIKE $1 AND last_name ILIKE $2
+       ORDER BY last_name, first_name`,
+      [`%${firstName}%`, `%${lastName}%`]
+    );
+
+    return results.rows.map((c) => new Customer(c));
+  }
+
   /** get a customer by ID. */
 
   static async get(id) {
