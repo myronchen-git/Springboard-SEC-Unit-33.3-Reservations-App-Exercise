@@ -11,7 +11,19 @@ class Customer {
     this.firstName = firstName;
     this.lastName = lastName;
     this.phone = phone;
-    this.notes = notes;
+    this._notes = notes;
+  }
+
+  get notes() {
+    return this._notes;
+  }
+
+  set notes(str) {
+    this._notes = str || '';
+  }
+
+  get fullName() {
+    return this.firstName + ' ' + this.lastName;
   }
 
   /** find all customers. */
@@ -88,20 +100,16 @@ class Customer {
         `INSERT INTO customers (first_name, last_name, phone, notes)
              VALUES ($1, $2, $3, $4)
              RETURNING id`,
-        [this.firstName, this.lastName, this.phone, this.notes]
+        [this.firstName, this.lastName, this.phone, this._notes]
       );
       this.id = result.rows[0].id;
     } else {
       await db.query(
         `UPDATE customers SET first_name=$1, last_name=$2, phone=$3, notes=$4
              WHERE id=$5`,
-        [this.firstName, this.lastName, this.phone, this.notes, this.id]
+        [this.firstName, this.lastName, this.phone, this._notes, this.id]
       );
     }
-  }
-
-  fullName() {
-    return this.firstName + ' ' + this.lastName;
   }
 
   /** Gets top 10 customers, ordered by most reservations. */
